@@ -1,0 +1,45 @@
+name: "🐛 Bug"
+description: "버그 리포트"
+labels: ["bug"]
+body:
+  - type: textarea
+    attributes:
+      label: 🐞 버그 설명
+      description: 어떤 버그가 발생했는지 작성해 주세요.
+      placeholder: 자세히 적을수록 좋습니다!
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 🔄 재현 방법
+      description: 버그를 재현할 수 있는 방법을 단계별로 작성해 주세요.
+      placeholder: |
+        1. '...'로 이동
+        2. '...'를 클릭
+        3. '...'까지 스크롤
+        4. 에러 확인
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 🤔 예상 동작
+      description: 원래 어떻게 동작해야 하는지 작성해 주세요.
+      placeholder: 정상적으로 동작했다면 어떤 결과가 나와야 하나요?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 🖥️ 환경 정보
+      description: OS, 브라우저, 버전 등 환경 정보를 작성해 주세요.
+      placeholder: |
+        - OS:
+        - 브라우저:
+        - 버전:
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: 📸 스크린샷 / 참고 자료
+      description: 스크린샷이나 참고 자료가 있다면 첨부해 주세요.
+    validations:
+      required: false
