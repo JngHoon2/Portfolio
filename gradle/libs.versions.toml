@@ -1,0 +1,13 @@
+# 버전 카탈로그: 프로젝트 전역 의존성/플러그인 버전을 한 곳에서 관리한다.
+[versions]
+# Kotlin 및 Compose Multiplatform (wasmJs 타겟 지원 안정 조합)
+kotlin = "2.2.0"
+composeMultiplatform = "1.8.2"
+
+[plugins]
+# Kotlin Multiplatform 플러그인 (wasmJs 타겟 활성화용)
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+# Kotlin 2.0+ 부터 필수인 Compose 컴파일러 플러그인
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+# Compose Multiplatform 플러그인 (UI 프레임워크)
+composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
