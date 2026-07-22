@@ -18,9 +18,15 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFontFamilyResolver
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -64,8 +70,22 @@ private fun pretendardFamily(): FontFamily = FontFamily(
 // 포트폴리오 루트 화면: 흰 배경 위 가운데 정렬된 단일 컬럼 레이아웃
 @Composable
 private fun PortfolioApp() {
+    val fontFamily = pretendardFamily()
+    val fontFamilyResolver = LocalFontFamilyResolver.current
+    // 폰트 다운로드가 끝나기 전에 그리면 폴백 폰트로 렌더링되어 한글이 잠깐 엑박(□)으로 보인다.
+    // 로드가 끝날 때까지 빈 화면으로 대기했다가 완료 후 본문을 그린다.
+    var fontsLoaded by remember { mutableStateOf(false) }
+    LaunchedEffect(fontFamily) {
+        fontFamilyResolver.preload(fontFamily)
+        fontsLoaded = true
+    }
+    if (!fontsLoaded) {
+        Surface(modifier = Modifier.fillMaxSize(), color = Color.White) {}
+        return
+    }
+
     // 앱 전역 기본 텍스트 스타일에 한글 폰트 적용 (모든 Text 가 상속)
-    val baseStyle = LocalTextStyle.current.copy(fontFamily = pretendardFamily())
+    val baseStyle = LocalTextStyle.current.copy(fontFamily = fontFamily)
     MaterialTheme {
         CompositionLocalProvider(LocalTextStyle provides baseStyle) {
         Surface(modifier = Modifier.fillMaxSize(), color = Color.White) {
